@@ -33,10 +33,10 @@ export function SimulationTable({ rows }: Props) {
   return (
     <div id="simulation-table-scroll" className="overflow-auto" style={{ maxHeight: '360px' }}>
       <table className="w-full text-xs" style={{ borderCollapse: 'separate', borderSpacing: 0, minWidth: 'max-content' }}>
-        {/* thead ごと sticky にして個別 th への sticky 指定を避ける */}
         <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
           <tr>
             <Th>年齢</Th>
+            <Th>利回り（%）</Th>
             <Th>投資額</Th>
             <Th>取崩額</Th>
             <Th>ライフイベント</Th>
@@ -56,6 +56,7 @@ export function SimulationTable({ rows }: Props) {
                 <Td className={`text-center font-medium ${r.isDepleted ? 'text-red-600' : 'text-gray-800'}`}>
                   {r.age}歳
                 </Td>
+                <Td className="text-gray-500">{r.rate}%</Td>
                 <Td className={textColor}>{fmt(r.investment)}</Td>
                 <Td className={textColor}>{fmt(r.withdrawal)}</Td>
                 <Td className={

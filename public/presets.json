@@ -1,0 +1,344 @@
+[
+  {
+    "name": "標準プラン（25歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 50, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 25, "annualRate": 4, "monthlyAmount": 3,   "annualAmount": 0, "memo": "社会人スタート・少額積立" },
+        { "startAge": 35, "annualRate": 4, "monthlyAmount": 7,   "annualAmount": 0, "memo": "収入安定・積立増加" },
+        { "startAge": 45, "annualRate": 4, "monthlyAmount": 3,   "annualAmount": 0, "memo": "教育費ピーク・積立抑制" },
+        { "startAge": 55, "annualRate": 4, "monthlyAmount": 10,  "annualAmount": 0, "memo": "収入ピーク・老後準備加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -15, "annualAmount": 0, "memo": "リタイア・取崩開始" }
+      ],
+      "lifeEvents": [
+        { "age": 30, "amount": -300,  "memo": "結婚・新居費用" },
+        { "age": 40, "amount": -500,  "memo": "住宅購入頭金" },
+        { "age": 60, "amount": 1000,  "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "標準プラン（35歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 100, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 35, "annualRate": 4, "monthlyAmount": 5,   "annualAmount": 0, "memo": "積立開始" },
+        { "startAge": 45, "annualRate": 4, "monthlyAmount": 3,   "annualAmount": 0, "memo": "教育費ピーク・積立抑制" },
+        { "startAge": 55, "annualRate": 4, "monthlyAmount": 10,  "annualAmount": 0, "memo": "収入ピーク・老後準備加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -15, "annualAmount": 0, "memo": "リタイア・取崩開始" }
+      ],
+      "lifeEvents": [
+        { "age": 40, "amount": -500, "memo": "住宅購入頭金" },
+        { "age": 60, "amount": 1000, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "標準プラン（45歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 200, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 45, "annualRate": 4, "monthlyAmount": 3,   "annualAmount": 0, "memo": "積立開始" },
+        { "startAge": 55, "annualRate": 4, "monthlyAmount": 10,  "annualAmount": 0, "memo": "老後準備加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -15, "annualAmount": 0, "memo": "リタイア・取崩開始" }
+      ],
+      "lifeEvents": [
+        { "age": 60, "amount": 1000, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "標準プラン（55歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 500, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 55, "annualRate": 4, "monthlyAmount": 10,  "annualAmount": 0, "memo": "老後準備加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -15, "annualAmount": 0, "memo": "リタイア・取崩開始" }
+      ],
+      "lifeEvents": [
+        { "age": 60, "amount": 1000, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "標準プラン（65歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 2000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -15, "annualAmount": 0, "memo": "リタイア・取崩開始" }
+      ],
+      "lifeEvents": []
+    }
+  },
+  {
+    "name": "FIREプラン（25歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 50, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 25, "annualRate": 6, "monthlyAmount": 15,  "annualAmount": 0, "memo": "FIRE向け積極積立" },
+        { "startAge": 35, "annualRate": 6, "monthlyAmount": 20,  "annualAmount": 0, "memo": "積立最大化" },
+        { "startAge": 45, "annualRate": 5, "monthlyAmount": -10, "annualAmount": 0, "memo": "45歳FIRE・生活費取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 30, "amount": -200, "memo": "結婚費用" }
+      ]
+    }
+  },
+  {
+    "name": "FIREプラン（35歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 200, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 35, "annualRate": 6, "monthlyAmount": 20,  "annualAmount": 0, "memo": "FIRE向け積極積立" },
+        { "startAge": 55, "annualRate": 5, "monthlyAmount": -10, "annualAmount": 0, "memo": "55歳FIRE・生活費取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 40, "amount": -300, "memo": "住宅費用" }
+      ]
+    }
+  },
+  {
+    "name": "FIREプラン（45歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 500, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 45, "annualRate": 6, "monthlyAmount": 20,  "annualAmount": 0, "memo": "FIRE向け積極積立" },
+        { "startAge": 60, "annualRate": 5, "monthlyAmount": -12, "annualAmount": 0, "memo": "60歳FIRE・生活費取崩" }
+      ],
+      "lifeEvents": []
+    }
+  },
+  {
+    "name": "FIREプラン（55歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 1000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 55, "annualRate": 6, "monthlyAmount": 20,  "annualAmount": 0, "memo": "FIRE向け積極積立" },
+        { "startAge": 65, "annualRate": 5, "monthlyAmount": -12, "annualAmount": 0, "memo": "65歳リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 60, "amount": 800, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "FIREプラン（65歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 3000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 65, "annualRate": 5, "monthlyAmount": -12, "annualAmount": 0, "memo": "取崩開始" }
+      ],
+      "lifeEvents": []
+    }
+  },
+  {
+    "name": "堅実・長期プラン（25歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 30, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 25, "annualRate": 2, "monthlyAmount": 3,   "annualAmount": 0, "memo": "コツコツ積立開始" },
+        { "startAge": 35, "annualRate": 2, "monthlyAmount": 5,   "annualAmount": 0, "memo": "積立増加" },
+        { "startAge": 45, "annualRate": 2, "monthlyAmount": 3,   "annualAmount": 0, "memo": "教育費ピーク" },
+        { "startAge": 55, "annualRate": 2, "monthlyAmount": 7,   "annualAmount": 0, "memo": "老後準備" },
+        { "startAge": 70, "annualRate": 2, "monthlyAmount": -10, "annualAmount": 0, "memo": "70歳リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 30, "amount": -300,  "memo": "結婚・新居費用" },
+        { "age": 40, "amount": -500,  "memo": "住宅購入頭金" },
+        { "age": 65, "amount": 1000,  "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "堅実・長期プラン（35歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 50, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 35, "annualRate": 2, "monthlyAmount": 3,   "annualAmount": 0, "memo": "コツコツ積立開始" },
+        { "startAge": 45, "annualRate": 2, "monthlyAmount": 3,   "annualAmount": 0, "memo": "教育費ピーク" },
+        { "startAge": 55, "annualRate": 2, "monthlyAmount": 7,   "annualAmount": 0, "memo": "老後準備" },
+        { "startAge": 70, "annualRate": 2, "monthlyAmount": -10, "annualAmount": 0, "memo": "70歳リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 40, "amount": -500, "memo": "住宅購入頭金" },
+        { "age": 65, "amount": 1000, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "堅実・長期プラン（45歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 100, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 45, "annualRate": 2, "monthlyAmount": 3,   "annualAmount": 0, "memo": "コツコツ積立開始" },
+        { "startAge": 55, "annualRate": 2, "monthlyAmount": 7,   "annualAmount": 0, "memo": "老後準備" },
+        { "startAge": 70, "annualRate": 2, "monthlyAmount": -10, "annualAmount": 0, "memo": "70歳リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 65, "amount": 1000, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "堅実・長期プラン（55歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 300, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 55, "annualRate": 2, "monthlyAmount": 7,   "annualAmount": 0, "memo": "老後準備" },
+        { "startAge": 70, "annualRate": 2, "monthlyAmount": -10, "annualAmount": 0, "memo": "70歳リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 65, "amount": 1000, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "堅実・長期プラン（65歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 1500, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 65, "annualRate": 2, "monthlyAmount": 3,   "annualAmount": 0, "memo": "70歳まで就労継続" },
+        { "startAge": 70, "annualRate": 2, "monthlyAmount": -8,  "annualAmount": 0, "memo": "70歳リタイア・取崩" }
+      ],
+      "lifeEvents": []
+    }
+  },
+  {
+    "name": "共働き夫婦プラン（25歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 100, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 25, "annualRate": 4, "monthlyAmount": 10,  "annualAmount": 0, "memo": "共働き・積極積立" },
+        { "startAge": 40, "annualRate": 4, "monthlyAmount": 8,   "annualAmount": 0, "memo": "子育て期・積立抑制" },
+        { "startAge": 50, "annualRate": 4, "monthlyAmount": 15,  "annualAmount": 0, "memo": "子供独立・積立再加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -20, "annualAmount": 0, "memo": "リタイア・2人分取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 30, "amount": -500,  "memo": "結婚・新居費用" },
+        { "age": 45, "amount": -800,  "memo": "子供教育費（大学等）" },
+        { "age": 60, "amount": 2000,  "memo": "退職金（2人分）" }
+      ]
+    }
+  },
+  {
+    "name": "共働き夫婦プラン（35歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 200, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 35, "annualRate": 4, "monthlyAmount": 12,  "annualAmount": 0, "memo": "共働き・積極積立" },
+        { "startAge": 45, "annualRate": 4, "monthlyAmount": 8,   "annualAmount": 0, "memo": "子育て期・積立抑制" },
+        { "startAge": 55, "annualRate": 4, "monthlyAmount": 18,  "annualAmount": 0, "memo": "子供独立・積立再加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -20, "annualAmount": 0, "memo": "リタイア・2人分取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 40, "amount": -500,  "memo": "住宅購入" },
+        { "age": 50, "amount": -500,  "memo": "子供教育費" },
+        { "age": 60, "amount": 2000,  "memo": "退職金（2人分）" }
+      ]
+    }
+  },
+  {
+    "name": "共働き夫婦プラン（45歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 400, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 45, "annualRate": 4, "monthlyAmount": 8,   "annualAmount": 0, "memo": "子育て期・積立" },
+        { "startAge": 55, "annualRate": 4, "monthlyAmount": 18,  "annualAmount": 0, "memo": "子供独立・積立加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -20, "annualAmount": 0, "memo": "リタイア・2人分取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 50, "amount": -500,  "memo": "子供教育費" },
+        { "age": 60, "amount": 2000,  "memo": "退職金（2人分）" }
+      ]
+    }
+  },
+  {
+    "name": "共働き夫婦プラン（55歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 1000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 55, "annualRate": 4, "monthlyAmount": 18,  "annualAmount": 0, "memo": "共働き・老後準備加速" },
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -20, "annualAmount": 0, "memo": "リタイア・2人分取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 60, "amount": 2000, "memo": "退職金（2人分）" }
+      ]
+    }
+  },
+  {
+    "name": "共働き夫婦プラン（65歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 4000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 65, "annualRate": 4, "monthlyAmount": -20, "annualAmount": 0, "memo": "リタイア・2人分取崩" }
+      ],
+      "lifeEvents": []
+    }
+  },
+  {
+    "name": "積極投資プラン（25歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 500, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 25, "annualRate": 7, "monthlyAmount": 10,  "annualAmount": 0, "memo": "積極投資・積立" },
+        { "startAge": 35, "annualRate": 7, "monthlyAmount": 15,  "annualAmount": 0, "memo": "投資額増加" },
+        { "startAge": 55, "annualRate": 6, "monthlyAmount": -15, "annualAmount": 0, "memo": "55歳リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 30, "amount": -300,  "memo": "結婚費用" },
+        { "age": 40, "amount": -500,  "memo": "住宅購入" },
+        { "age": 50, "amount": 1500,  "memo": "退職金・資産売却" }
+      ]
+    }
+  },
+  {
+    "name": "積極投資プラン（35歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 500, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 35, "annualRate": 7, "monthlyAmount": 15,  "annualAmount": 0, "memo": "積極投資・積立" },
+        { "startAge": 55, "annualRate": 6, "monthlyAmount": -15, "annualAmount": 0, "memo": "55歳リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 40, "amount": -500,  "memo": "住宅購入" },
+        { "age": 50, "amount": 1500,  "memo": "退職金・資産売却" }
+      ]
+    }
+  },
+  {
+    "name": "積極投資プラン（45歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 1000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 45, "annualRate": 7, "monthlyAmount": 15,  "annualAmount": 0, "memo": "積極投資・積立" },
+        { "startAge": 65, "annualRate": 6, "monthlyAmount": -20, "annualAmount": 0, "memo": "リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 60, "amount": 1500, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "積極投資プラン（55歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 2000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 55, "annualRate": 7, "monthlyAmount": 10,  "annualAmount": 0, "memo": "積極投資・積立" },
+        { "startAge": 65, "annualRate": 6, "monthlyAmount": -20, "annualAmount": 0, "memo": "リタイア・取崩" }
+      ],
+      "lifeEvents": [
+        { "age": 60, "amount": 1500, "memo": "退職金" }
+      ]
+    }
+  },
+  {
+    "name": "積極投資プラン（65歳スタート）",
+    "data": {
+      "global": { "initialPrincipal": 5000, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 65, "annualRate": 6, "monthlyAmount": -25, "annualAmount": 0, "memo": "リタイア・取崩" }
+      ],
+      "lifeEvents": []
+    }
+  }
+]

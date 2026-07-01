@@ -109,21 +109,24 @@ export function SimulationChart({ rows, id = 'simulation-chart' }: Props) {
       {/* 下段：利益額・投資額・取崩額（棒グラフ） */}
       <p className="text-xs text-gray-500 font-medium pl-1">年間収支（万円）</p>
       <ResponsiveContainer width="100%" height={260}>
-        <ComposedChart data={chartData} margin={{ ...CHART_MARGIN, bottom: 4 }}>
+        <ComposedChart data={chartData} margin={{ ...CHART_MARGIN, bottom: 4 }} barGap={-8}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis
             dataKey="age"
+            type="number"
+            domain={['dataMin', 'dataMax']}
             ticks={tickAges}
             tickFormatter={v => `${v}歳`}
             tick={{ fontSize: 11 }}
+            padding={{ left: 10, right: 10 }}
           />
           <YAxis tickFormatter={v => fmt(v, 0)} tick={{ fontSize: 11 }} width={YAXIS_W} />
           <Tooltip content={<BarTooltip />} />
           <Legend wrapperStyle={{ fontSize: 11 }} />
           <ReferenceLine y={0} stroke="#aaa" strokeDasharray="3 3" />
-          <Bar dataKey="investment"    name="投資額" stackId="pos" fill="#3b82f6" maxBarSize={16} />
-          <Bar dataKey="profit"        name="利益額" stackId="pos" fill="#22c55e" maxBarSize={16} />
-          <Bar dataKey="withdrawalBar" name="取崩額" fill="#ef4444" maxBarSize={16} />
+          <Bar dataKey="investment"    name="投資額" stackId="pos" fill="#3b82f6" barSize={8} />
+          <Bar dataKey="profit"        name="利益額" stackId="pos" fill="#22c55e" barSize={8} />
+          <Bar dataKey="withdrawalBar" name="取崩額" fill="#ef4444" barSize={8} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

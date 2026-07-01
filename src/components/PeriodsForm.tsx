@@ -10,14 +10,13 @@ import { Plus, Trash2 } from 'lucide-react';
 interface Props {
   periods: Period[];
   endAge: number;
-  /** 入力中のリアルタイム更新（ソートなし） */
   onChange: (periods: Period[]) => void;
-  /** 確定時の更新（追加・削除・startAgeのblur → ソートして表示順を整える） */
   onCommit: (periods: Period[]) => void;
   errors: string[];
 }
 
 const MAX_PERIODS = 10;
+const DEFAULT_RATE = 4;
 
 export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Props) {
   const add = () => {
@@ -26,15 +25,16 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
     const newPeriod: Period = {
       id: generateId(),
       startAge: maxAge + 10,
+      annualRate: DEFAULT_RATE,
       monthlyAmount: 0,
       annualAmount: 0,
       memo: '',
     };
-    onCommit([...periods, newPeriod]); // ソートして追加
+    onCommit([...periods, newPeriod]);
   };
 
   const remove = (id: string) => {
-    onCommit(periods.filter(p => p.id !== id)); // ソートして更新
+    onCommit(periods.filter(p => p.id !== id));
   };
 
   const updateNum = (id: string, key: keyof Period, value: number) => {
@@ -45,10 +45,8 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
     onChange(periods.map(p => p.id !== id ? p : { ...p, memo }));
   };
 
-  // startAge の編集が確定したらソート
   const commitStartAge = () => onCommit(periods);
 
-  // 表示用：現在の配列順に番号を振る（ソートは blur 後に反映）
   return (
     <Card>
       <CardHeader>
@@ -66,6 +64,7 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
         {periods.map((p, i) => {
           const isFirst = i === 0;
           const overEnd = p.startAge >= endAge;
+          const rateError = p.annualRate < 0 || p.annualRate > 50;
           return (
             <div
               key={p.id}
@@ -81,7 +80,7 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
                   </Button>
                 )}
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
                   <Label>開始年齢</Label>
                   <NumericInput
@@ -89,6 +88,14 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
                     value={p.startAge}
                     onChange={v => updateNum(p.id, 'startAge', v)}
                     onBlur={commitStartAge}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label>利回り（%）</Label>
+                  <NumericInput
+                    key={`${p.id}-rate`}
+                    value={p.annualRate}
+                    onChange={v => updateNum(p.id, 'annualRate', v)}
                   />
                 </div>
                 <div className="space-y-1">
@@ -122,6 +129,9 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
               {overEnd && (
                 <p className="text-xs text-red-600">開始年齢が終了年齢以上のため計算から除外されます</p>
               )}
+              {rateError && (
+                <p className="text-xs text-red-600">利回りは0〜50%の範囲で入力してください</p>
+              )}
             </div>
           );
         })}
@@ -129,4 +139,3 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
     </Card>
   );
 }
-

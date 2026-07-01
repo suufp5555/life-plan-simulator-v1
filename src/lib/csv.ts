@@ -3,6 +3,7 @@ import type { SimulationRow } from '../types';
 export function exportCSV(rows: SimulationRow[]): void {
   const headers = [
     '年齢',
+    '利回り（%）',
     '投資額（万円）',
     '取崩額（万円）',
     'ライフイベント（万円）',
@@ -17,6 +18,7 @@ export function exportCSV(rows: SimulationRow[]): void {
 
   const lines = rows.map(r => [
     r.age,
+    r.rate,
     round(r.investment),
     round(r.withdrawal),
     r.lifeEvent !== 0 ? round(r.lifeEvent) : '',
@@ -27,7 +29,6 @@ export function exportCSV(rows: SimulationRow[]): void {
     round(r.asset),
   ].join(','));
 
-  // UTF-8 BOM を付与して Excel で文字化けしないようにする
   const csv = '﻿' + headers.join(',') + '\n' + lines.join('\n');
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
