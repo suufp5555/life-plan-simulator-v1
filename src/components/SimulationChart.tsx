@@ -80,16 +80,17 @@ export function SimulationChart({ rows, id = 'simulation-chart' }: Props) {
 
       {/* 上段：資産額（折れ線） */}
       <p className="text-xs text-gray-500 font-medium pl-1">資産額（万円）</p>
-      <ResponsiveContainer width="100%" height={320}>
-        <ComposedChart data={chartData} margin={CHART_MARGIN}>
+      <ResponsiveContainer width="100%" height={384}>
+        <ComposedChart data={chartData} margin={{ ...CHART_MARGIN, bottom: 4 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis
             dataKey="age"
+            type="number"
+            domain={['dataMin', 'dataMax']}
             ticks={tickAges}
-            tick={false}
-            tickLine={false}
-            axisLine={false}
-            height={0}
+            tickFormatter={v => `${v}歳`}
+            tick={{ fontSize: 11 }}
+            padding={{ left: 10, right: 10 }}
           />
           <YAxis tickFormatter={v => fmt(v, 0)} tick={{ fontSize: 11 }} width={YAXIS_W} />
           <Tooltip content={<AssetTooltip />} />
@@ -108,7 +109,7 @@ export function SimulationChart({ rows, id = 'simulation-chart' }: Props) {
 
       {/* 下段：利益額・投資額・取崩額（棒グラフ） */}
       <p className="text-xs text-gray-500 font-medium pl-1">年間収支（万円）</p>
-      <ResponsiveContainer width="100%" height={260}>
+      <ResponsiveContainer width="100%" height={312}>
         <ComposedChart data={chartData} margin={{ ...CHART_MARGIN, bottom: 4 }} barGap={-8}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis

@@ -3,7 +3,7 @@ import { generateId } from '../lib/utils';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { CollapsibleCard } from './ui/card';
 import { NumericInput } from './ui/numeric-input';
 import { Plus, Trash2 } from 'lucide-react';
 
@@ -30,7 +30,8 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
       annualAmount: 0,
       memo: '',
     };
-    onCommit([...periods, newPeriod]);
+    // 追加直後は先頭に表示してすぐ編集できるようにする（次のコミットで年齢順に整列）
+    onChange([newPeriod, ...periods]);
   };
 
   const remove = (id: string) => {
@@ -47,101 +48,111 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
 
   const commitStartAge = () => onCommit(periods);
 
+  const hasError =
+    errors.length > 0 ||
+    periods.some(p => p.startAge >= endAge || p.annualRate < 0 || p.annualRate > 50);
+
+  // 追加直後は表示順が年齢順と一致しないため、期番号・「現在」判定は年齢順の順位で決める
+  const rankIds = [...periods].sort((a, b) => a.startAge - b.startAge).map(p => p.id);
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>期の設定</CardTitle>
+    <CollapsibleCard
+      title="期の設定"
+      count={periods.length}
+      warning={hasError}
+      contentClassName="space-y-3"
+      action={
         <Button size="sm" variant="outline" onClick={add} disabled={periods.length >= MAX_PERIODS}>
           <Plus className="w-3 h-3 mr-1" />期を追加
         </Button>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-xs text-gray-500 bg-blue-50 rounded p-2 leading-relaxed">
-          積立/取崩はプラス＝積立、マイナス＝取崩。老後の取崩額は
-          <span className="font-semibold">「生活費 − 年金などの収入」</span>
-          の不足分を入力します（例：生活費26万 − 年金22万 → -4）。
-          利回りは年利（%）。リタイア後は低め（2〜3%）にするのが保守的な目安です。
-        </p>
-        {errors.length > 0 && (
-          <div className="text-xs text-red-600 bg-red-50 rounded p-2 space-y-1">
-            {errors.map((e, i) => <p key={i}>{e}</p>)}
-          </div>
-        )}
-        {periods.map((p, i) => {
-          const isFirst = i === 0;
-          const overEnd = p.startAge >= endAge;
-          const rateError = p.annualRate < 0 || p.annualRate > 50;
-          return (
-            <div
-              key={p.id}
-              className={`border rounded-md p-3 space-y-2 ${overEnd ? 'border-red-300 bg-red-50' : 'border-gray-200'}`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-gray-600">
-                  第{i + 1}期{isFirst ? '（現在）' : ''}
-                </span>
-                {!isFirst && (
-                  <Button size="sm" variant="ghost" onClick={() => remove(p.id)}>
-                    <Trash2 className="w-3 h-3 text-red-500" />
-                  </Button>
-                )}
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="space-y-1">
-                  <Label>開始年齢</Label>
-                  <NumericInput
-                    key={`${p.id}-startAge`}
-                    value={p.startAge}
-                    onChange={v => updateNum(p.id, 'startAge', v)}
-                    onBlur={commitStartAge}
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label>利回り（%）</Label>
-                  <NumericInput
-                    key={`${p.id}-rate`}
-                    value={p.annualRate}
-                    onChange={v => updateNum(p.id, 'annualRate', v)}
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label>積立/取崩（万円/月）</Label>
-                  <NumericInput
-                    key={`${p.id}-monthly`}
-                    value={p.monthlyAmount}
-                    onChange={v => updateNum(p.id, 'monthlyAmount', v)}
-                    placeholder="例：-15"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label>追加投資/取崩（万円/年）</Label>
-                  <NumericInput
-                    key={`${p.id}-annual`}
-                    value={p.annualAmount}
-                    onChange={v => updateNum(p.id, 'annualAmount', v)}
-                    placeholder="例：-100"
-                  />
-                </div>
-              </div>
-              <div className="space-y-1">
-                <Label>メモ（想定シーン）</Label>
-                <Textarea
-                  rows={1}
-                  placeholder="例：社会人スタート・少額積立"
-                  value={p.memo}
-                  onChange={e => updateMemo(p.id, e.target.value)}
-                />
-              </div>
-              {overEnd && (
-                <p className="text-xs text-red-600">開始年齢が終了年齢以上のため計算から除外されます</p>
-              )}
-              {rateError && (
-                <p className="text-xs text-red-600">利回りは0〜50%の範囲で入力してください</p>
+      }
+    >
+      <p className="text-xs text-gray-500 bg-blue-50 rounded p-2 leading-relaxed">
+        積立/取崩はプラス＝積立、マイナス＝取崩。老後の取崩額は
+        <span className="font-semibold">「生活費 − 年金などの収入」</span>
+        の不足分を入力します（例：生活費26万 − 年金22万 → -4）。
+        利回りは年利（%）。リタイア後は低め（2〜3%）にするのが保守的な目安です。
+      </p>
+      {errors.length > 0 && (
+        <div className="text-xs text-red-600 bg-red-50 rounded p-2 space-y-1">
+          {errors.map((e, i) => <p key={i}>{e}</p>)}
+        </div>
+      )}
+      {periods.map(p => {
+        const rank = rankIds.indexOf(p.id);
+        const isFirst = rank === 0;
+        const overEnd = p.startAge >= endAge;
+        const rateError = p.annualRate < 0 || p.annualRate > 50;
+        return (
+          <div
+            key={p.id}
+            className={`border rounded-md p-3 space-y-2 ${overEnd ? 'border-red-300 bg-red-50' : 'border-gray-200'}`}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-gray-600">
+                第{rank + 1}期{isFirst ? '（現在）' : ''}
+              </span>
+              {!isFirst && (
+                <Button size="sm" variant="ghost" onClick={() => remove(p.id)}>
+                  <Trash2 className="w-3 h-3 text-red-500" />
+                </Button>
               )}
             </div>
-          );
-        })}
-      </CardContent>
-    </Card>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-1">
+                <Label>開始年齢</Label>
+                <NumericInput
+                  key={`${p.id}-startAge`}
+                  value={p.startAge}
+                  onChange={v => updateNum(p.id, 'startAge', v)}
+                  onBlur={commitStartAge}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>利回り（%）</Label>
+                <NumericInput
+                  key={`${p.id}-rate`}
+                  value={p.annualRate}
+                  onChange={v => updateNum(p.id, 'annualRate', v)}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>積立/取崩（万円/月）</Label>
+                <NumericInput
+                  key={`${p.id}-monthly`}
+                  value={p.monthlyAmount}
+                  onChange={v => updateNum(p.id, 'monthlyAmount', v)}
+                  placeholder="例：-15"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>追加投資/取崩（万円/年）</Label>
+                <NumericInput
+                  key={`${p.id}-annual`}
+                  value={p.annualAmount}
+                  onChange={v => updateNum(p.id, 'annualAmount', v)}
+                  placeholder="例：-100"
+                />
+              </div>
+            </div>
+            <div className="space-y-1">
+              <Label>メモ（想定シーン）</Label>
+              <Textarea
+                rows={1}
+                placeholder="例：社会人スタート・少額積立"
+                value={p.memo}
+                onChange={e => updateMemo(p.id, e.target.value)}
+              />
+            </div>
+            {overEnd && (
+              <p className="text-xs text-red-600">開始年齢が終了年齢以上のため計算から除外されます</p>
+            )}
+            {rateError && (
+              <p className="text-xs text-red-600">利回りは0〜50%の範囲で入力してください</p>
+            )}
+          </div>
+        );
+      })}
+    </CollapsibleCard>
   );
 }

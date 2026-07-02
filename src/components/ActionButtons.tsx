@@ -56,14 +56,14 @@ export function ActionButtons({ data, rows, onImport }: Props) {
   return (
     <div className="flex flex-wrap gap-2">
       <Button size="sm" variant="outline" onClick={handleExportJSON}>
-        <Download className="w-3 h-3 mr-1" />JSON保存
+        <Download className="w-3 h-3 mr-1" />設定Export
       </Button>
       <Button size="sm" variant="outline" onClick={() => fileRef.current?.click()}>
-        <Upload className="w-3 h-3 mr-1" />JSON読込
+        <Upload className="w-3 h-3 mr-1" />設定Import
       </Button>
       <input ref={fileRef} type="file" accept=".json" className="hidden" onChange={handleImportJSON} />
       <Button size="sm" variant="outline" onClick={() => exportCSV(rows)} disabled={rows.length === 0}>
-        <Table className="w-3 h-3 mr-1" />CSV出力
+        <Table className="w-3 h-3 mr-1" />テーブルCSV出力
       </Button>
       <Button size="sm" variant="outline" onClick={handleExportPDF} disabled={rows.length === 0 || pdfLoading}>
         <FileDown className="w-3 h-3 mr-1" />{pdfLoading ? 'PDF生成中...' : 'PDF出力'}
