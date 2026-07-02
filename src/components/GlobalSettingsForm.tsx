@@ -44,7 +44,7 @@ export function GlobalSettingsForm({ value, onChange, presets, selectedPreset, o
               value={value.initialPrincipal}
               onChange={v => onChange({ ...value, initialPrincipal: v })}
             />
-            <p className="text-xs text-gray-400">累計投資額に加算</p>
+            <p className="text-xs text-gray-400">これまでに投資した元本の合計</p>
           </div>
           <div className="space-y-1">
             <Label htmlFor="initialProfit">開始時投資利益額（万円）</Label>
@@ -53,7 +53,7 @@ export function GlobalSettingsForm({ value, onChange, presets, selectedPreset, o
               value={value.initialProfit}
               onChange={v => onChange({ ...value, initialProfit: v })}
             />
-            <p className="text-xs text-gray-400">累計利益額に加算</p>
+            <p className="text-xs text-gray-400">現在の評価益（資産額−元本）</p>
           </div>
           <div className="space-y-1">
             <Label htmlFor="endAge">終了年齢</Label>

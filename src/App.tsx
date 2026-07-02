@@ -10,19 +10,26 @@ import { SimulationTable } from './components/SimulationTable';
 import { ActionButtons } from './components/ActionButtons';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 
+// presets.json の先頭ペルソナ（共働き・子育て世帯）と同内容。読込失敗時のフォールバック
 const DEFAULT_DATA: AppData = {
-  global: { initialPrincipal: 50, initialProfit: 0, endAge: 100 },
+  global: { initialPrincipal: 300, initialProfit: 0, endAge: 100 },
   periods: [
-    { id: generateId(), startAge: 25, annualRate: 4, monthlyAmount: 3,   annualAmount: 0, memo: '社会人スタート・少額積立' },
-    { id: generateId(), startAge: 35, annualRate: 4, monthlyAmount: 7,   annualAmount: 0, memo: '収入安定・積立増加' },
-    { id: generateId(), startAge: 45, annualRate: 4, monthlyAmount: 3,   annualAmount: 0, memo: '教育費ピーク・積立抑制' },
-    { id: generateId(), startAge: 55, annualRate: 4, monthlyAmount: 10,  annualAmount: 0, memo: '収入ピーク・老後準備加速' },
-    { id: generateId(), startAge: 65, annualRate: 4, monthlyAmount: -15, annualAmount: 0, memo: 'リタイア・取崩開始' },
+    { id: generateId(), startAge: 35, annualRate: 4, monthlyAmount: 5,   annualAmount: 0, memo: '夫婦2人でNISA月5万' },
+    { id: generateId(), startAge: 45, annualRate: 4, monthlyAmount: 3,   annualAmount: 0, memo: '教育費ピークで積立抑制' },
+    { id: generateId(), startAge: 55, annualRate: 4, monthlyAmount: 8,   annualAmount: 0, memo: '教育費卒業・老後準備加速' },
+    { id: generateId(), startAge: 65, annualRate: 3, monthlyAmount: -13, annualAmount: 0, memo: 'ゆとりある生活費35万−年金(2人分)22万＝取崩13万' },
   ],
   lifeEvents: [
-    { id: generateId(), age: 30, amount: -300, memo: '結婚・新居費用' },
-    { id: generateId(), age: 40, amount: -500, memo: '住宅購入頭金' },
-    { id: generateId(), age: 60, amount: 1000, memo: '退職金' },
+    { id: generateId(), age: 40, amount: -300, memo: '住宅購入頭金' },
+    { id: generateId(), age: 48, amount: -150, memo: '子①大学入学' },
+    { id: generateId(), age: 50, amount: -150, memo: '子②大学入学' },
+    { id: generateId(), age: 55, amount: -200, memo: '車買い替え' },
+    { id: generateId(), age: 55, amount: -100, memo: '子①結婚援助' },
+    { id: generateId(), age: 57, amount: -100, memo: '子②結婚援助' },
+    { id: generateId(), age: 60, amount: 1500, memo: '退職金（2人分）' },
+    { id: generateId(), age: 68, amount: -250, memo: '車買い替え' },
+    { id: generateId(), age: 75, amount: -400, memo: '住宅リフォーム' },
+    { id: generateId(), age: 85, amount: -800, memo: '介護費用（2人分）' },
   ],
 };
 
@@ -138,6 +145,9 @@ export default function App() {
             </CardHeader>
             <CardContent className="p-2">
               <SimulationChart rows={rows} />
+              <p className="text-xs text-gray-400 px-2 pt-1">
+                ※ 設定した利回りが毎年一定で続く前提の月次複利計算です。税金・手数料・物価上昇（インフレ）は考慮していません。
+              </p>
             </CardContent>
           </Card>
 
@@ -151,6 +161,11 @@ export default function App() {
           </Card>
         </div>
       </div>
+
+      <footer className="px-4 py-6 text-center text-xs text-gray-400 space-y-1">
+        <p>本シミュレーションは簡易的な試算であり、将来の運用成果を保証するものではありません。</p>
+        <p>特定の金融商品の推奨や投資助言を行うものではありません。投資の判断はご自身の責任でお願いします。</p>
+      </footer>
     </div>
   );
 }

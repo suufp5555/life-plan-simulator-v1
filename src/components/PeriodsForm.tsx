@@ -56,6 +56,12 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
         </Button>
       </CardHeader>
       <CardContent className="space-y-3">
+        <p className="text-xs text-gray-500 bg-blue-50 rounded p-2 leading-relaxed">
+          積立/取崩はプラス＝積立、マイナス＝取崩。老後の取崩額は
+          <span className="font-semibold">「生活費 − 年金などの収入」</span>
+          の不足分を入力します（例：生活費26万 − 年金22万 → -4）。
+          利回りは年利（%）。リタイア後は低め（2〜3%）にするのが保守的な目安です。
+        </p>
         {errors.length > 0 && (
           <div className="text-xs text-red-600 bg-red-50 rounded p-2 space-y-1">
             {errors.map((e, i) => <p key={i}>{e}</p>)}

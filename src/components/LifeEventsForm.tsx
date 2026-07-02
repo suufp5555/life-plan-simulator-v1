@@ -39,6 +39,10 @@ export function LifeEventsForm({ events, onChange }: Props) {
         </Button>
       </CardHeader>
       <CardContent className="space-y-3">
+        <p className="text-xs text-gray-500 bg-blue-50 rounded p-2 leading-relaxed">
+          一時的な収支を年齢指定で反映します。プラス＝収入（投資へ追加）、
+          マイナス＝支出（資産から取崩）。指定年齢の年初に一括適用されます。
+        </p>
         {events.length === 0 && (
           <p className="text-xs text-gray-400 text-center py-2">ライフイベントがありません</p>
         )}
