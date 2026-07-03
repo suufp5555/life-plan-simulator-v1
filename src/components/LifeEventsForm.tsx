@@ -5,14 +5,14 @@ import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { CollapsibleCard } from './ui/card';
 import { NumericInput } from './ui/numeric-input';
+import { EditionNotice } from './EditionNotice';
+import { IS_FULL, MAX_EVENTS } from '../lib/edition';
 import { ArrowDown, Plus, Trash2 } from 'lucide-react';
 
 interface Props {
   events: LifeEvent[];
   onChange: (events: LifeEvent[]) => void;
 }
-
-const MAX_EVENTS = 30;
 
 export function LifeEventsForm({ events, onChange }: Props) {
   const add = () => {
@@ -53,6 +53,11 @@ export function LifeEventsForm({ events, onChange }: Props) {
         一時的な収支を年齢指定で反映します。プラス＝収入（投資へ追加）、
         マイナス＝支出（資産から取崩）。指定年齢の年初に一括適用されます。
       </p>
+      {!IS_FULL && events.length >= MAX_EVENTS && (
+        <EditionNotice>
+          無料版で設定できるライフイベントは{MAX_EVENTS}個までです。開放版では30個まで設定できます。
+        </EditionNotice>
+      )}
       {events.length === 0 && (
         <p className="text-xs text-gray-400 text-center py-2">ライフイベントがありません</p>
       )}

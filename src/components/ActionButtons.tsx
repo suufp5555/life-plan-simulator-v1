@@ -4,6 +4,8 @@ import type { SimulationRow } from '../types';
 import { Button } from './ui/button';
 import { exportPDF } from '../lib/pdf';
 import { exportCSV } from '../lib/csv';
+import { EditionNotice } from './EditionNotice';
+import { CAN_EXPORT, CAN_PDF } from '../lib/edition';
 import { Download, Upload, FileDown, Table } from 'lucide-react';
 
 interface Props {
@@ -54,20 +56,27 @@ export function ActionButtons({ data, rows, onImport }: Props) {
   };
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button size="sm" variant="outline" onClick={handleExportJSON}>
-        <Download className="w-3 h-3 mr-1" />設定Export
-      </Button>
-      <Button size="sm" variant="outline" onClick={() => fileRef.current?.click()}>
-        <Upload className="w-3 h-3 mr-1" />設定Import
-      </Button>
-      <input ref={fileRef} type="file" accept=".json" className="hidden" onChange={handleImportJSON} />
-      <Button size="sm" variant="outline" onClick={() => exportCSV(rows)} disabled={rows.length === 0}>
-        <Table className="w-3 h-3 mr-1" />テーブルCSV出力
-      </Button>
-      <Button size="sm" variant="outline" onClick={handleExportPDF} disabled={rows.length === 0 || pdfLoading}>
-        <FileDown className="w-3 h-3 mr-1" />{pdfLoading ? 'PDF生成中...' : 'PDF出力'}
-      </Button>
+    <div className="space-y-2">
+      <div className="flex flex-wrap gap-2">
+        <Button size="sm" variant="outline" onClick={handleExportJSON} disabled={!CAN_EXPORT}>
+          <Download className="w-3 h-3 mr-1" />設定Export
+        </Button>
+        <Button size="sm" variant="outline" onClick={() => fileRef.current?.click()} disabled={!CAN_EXPORT}>
+          <Upload className="w-3 h-3 mr-1" />設定Import
+        </Button>
+        <input ref={fileRef} type="file" accept=".json" className="hidden" onChange={handleImportJSON} />
+        <Button size="sm" variant="outline" onClick={() => exportCSV(rows)} disabled={rows.length === 0}>
+          <Table className="w-3 h-3 mr-1" />テーブルCSV出力
+        </Button>
+        <Button size="sm" variant="outline" onClick={handleExportPDF} disabled={rows.length === 0 || pdfLoading || !CAN_PDF}>
+          <FileDown className="w-3 h-3 mr-1" />{pdfLoading ? 'PDF生成中...' : 'PDF出力'}
+        </Button>
+      </div>
+      {(!CAN_EXPORT || !CAN_PDF) && (
+        <EditionNotice>
+          設定Export/Import・PDF出力は開放版でご利用いただけます。
+        </EditionNotice>
+      )}
     </div>
   );
 }

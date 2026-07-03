@@ -5,6 +5,8 @@ import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { CollapsibleCard } from './ui/card';
 import { NumericInput } from './ui/numeric-input';
+import { EditionNotice } from './EditionNotice';
+import { IS_FULL, MAX_PERIODS } from '../lib/edition';
 import { Plus, Trash2 } from 'lucide-react';
 
 interface Props {
@@ -15,7 +17,6 @@ interface Props {
   errors: string[];
 }
 
-const MAX_PERIODS = 10;
 const DEFAULT_RATE = 4;
 
 export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Props) {
@@ -73,6 +74,11 @@ export function PeriodsForm({ periods, endAge, onChange, onCommit, errors }: Pro
         の不足分を入力します（例：生活費26万 − 年金22万 → -4）。
         利回りは年利（%）。リタイア後は低め（2〜3%）にするのが保守的な目安です。
       </p>
+      {!IS_FULL && periods.length >= MAX_PERIODS && (
+        <EditionNotice>
+          無料版で設定できる期は{MAX_PERIODS}つまでです。開放版では10期まで設定できます。
+        </EditionNotice>
+      )}
       {errors.length > 0 && (
         <div className="text-xs text-red-600 bg-red-50 rounded p-2 space-y-1">
           {errors.map((e, i) => <p key={i}>{e}</p>)}
