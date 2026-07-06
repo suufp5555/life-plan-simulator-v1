@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { exportPDF } from '../lib/pdf';
 import { exportCSV } from '../lib/csv';
 import { EditionNotice } from './EditionNotice';
-import { CAN_EXPORT, CAN_PDF } from '../lib/edition';
+import { CAN_CSV, CAN_EXPORT, CAN_PDF } from '../lib/edition';
 import { Download, Upload, FileDown, Table } from 'lucide-react';
 
 interface Props {
@@ -65,16 +65,16 @@ export function ActionButtons({ data, rows, onImport }: Props) {
           <Upload className="w-3 h-3 mr-1" />設定Import
         </Button>
         <input ref={fileRef} type="file" accept=".json" className="hidden" onChange={handleImportJSON} />
-        <Button size="sm" variant="outline" onClick={() => exportCSV(rows)} disabled={rows.length === 0}>
+        <Button size="sm" variant="outline" onClick={() => exportCSV(rows)} disabled={rows.length === 0 || !CAN_CSV}>
           <Table className="w-3 h-3 mr-1" />テーブルCSV出力
         </Button>
         <Button size="sm" variant="outline" onClick={handleExportPDF} disabled={rows.length === 0 || pdfLoading || !CAN_PDF}>
           <FileDown className="w-3 h-3 mr-1" />{pdfLoading ? 'PDF生成中...' : 'PDF出力'}
         </Button>
       </div>
-      {(!CAN_EXPORT || !CAN_PDF) && (
+      {(!CAN_EXPORT || !CAN_CSV || !CAN_PDF) && (
         <EditionNotice>
-          設定Export/Import・PDF出力は開放版でご利用いただけます。
+          設定Export/Import・テーブルCSV出力・PDF出力は開放版でご利用いただけます。
         </EditionNotice>
       )}
     </div>

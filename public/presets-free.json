@@ -1,0 +1,49 @@
+[
+  {
+    "name": "共働き・子育て世帯（35歳〜）",
+    "data": {
+      "global": { "initialPrincipal": 300, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 35, "annualRate": 4, "monthlyAmount": 5,   "annualAmount": 0, "memo": "夫婦2人でNISA月5万" },
+        { "startAge": 45, "annualRate": 4, "monthlyAmount": 3,   "annualAmount": 0, "memo": "教育費ピークで積立抑制" },
+        { "startAge": 65, "annualRate": 3, "monthlyAmount": -13, "annualAmount": 0, "memo": "ゆとりある生活費35万−年金(2人分)22万＝取崩13万" }
+      ],
+      "lifeEvents": [
+        { "age": 45, "amount": -700,  "memo": "住宅購入頭金・教育費" },
+        { "age": 60, "amount": 1500,  "memo": "退職金（2人分）" },
+        { "age": 85, "amount": -1100, "memo": "住宅リフォーム・介護費用（2人分）" }
+      ]
+    }
+  },
+  {
+    "name": "独身・マイペース積立（35歳〜）",
+    "data": {
+      "global": { "initialPrincipal": 100, "initialProfit": 0, "endAge": 100 },
+      "periods": [
+        { "startAge": 35, "annualRate": 4, "monthlyAmount": 3,  "annualAmount": 0, "memo": "つみたてNISAで月3万" },
+        { "startAge": 45, "annualRate": 4, "monthlyAmount": 5,  "annualAmount": 0, "memo": "収入増で増額" },
+        { "startAge": 65, "annualRate": 3, "monthlyAmount": -9, "annualAmount": 0, "memo": "生活費とゆとり22万−年金13万＝取崩9万" }
+      ],
+      "lifeEvents": [
+        { "age": 50, "amount": -400,  "memo": "車買い替え（2回分）" },
+        { "age": 60, "amount": 800,   "memo": "退職金" },
+        { "age": 80, "amount": -1400, "memo": "住宅リフォーム・医療・介護費用" }
+      ]
+    }
+  },
+  {
+    "name": "リタイア済み・取崩中（68歳〜）",
+    "data": {
+      "global": { "initialPrincipal": 1500, "initialProfit": 500, "endAge": 100 },
+      "periods": [
+        { "startAge": 68, "annualRate": 3, "monthlyAmount": -5, "annualAmount": 0, "memo": "生活費25万−年金22万＝取崩3万＋ゆとり2万" },
+        { "startAge": 80, "annualRate": 2, "monthlyAmount": -3, "annualAmount": 0, "memo": "活動費減・取崩縮小、運用も保守化" }
+      ],
+      "lifeEvents": [
+        { "age": 70, "amount": -400, "memo": "住宅リフォーム・車買い替え" },
+        { "age": 80, "amount": -300, "memo": "医療費（入院・手術）" },
+        { "age": 85, "amount": -900, "memo": "介護費用（施設入居・継続）" }
+      ]
+    }
+  }
+]

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { AppData, GlobalSettings, LifeEvent, Period, Preset } from './types';
 import { simulate } from './lib/simulation';
 import { generateId } from './lib/utils';
+import { IS_FULL, PRESETS_FILE } from './lib/edition';
 import { GlobalSettingsForm } from './components/GlobalSettingsForm';
 import { PeriodsForm } from './components/PeriodsForm';
 import { LifeEventsForm } from './components/LifeEventsForm';
@@ -10,8 +11,8 @@ import { SimulationTable } from './components/SimulationTable';
 import { ActionButtons } from './components/ActionButtons';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 
-// presets.json の先頭ペルソナ（共働き・子育て世帯）と同内容。読込失敗時のフォールバック
-const DEFAULT_DATA: AppData = {
+// 各エディションのプリセット先頭ペルソナ（共働き・子育て世帯）と同内容。読込失敗時のフォールバック
+const DEFAULT_DATA_FULL: AppData = {
   global: { initialPrincipal: 300, initialProfit: 0, endAge: 100 },
   periods: [
     { id: generateId(), startAge: 35, annualRate: 4, monthlyAmount: 5,   annualAmount: 0, memo: '夫婦2人でNISA月5万' },
@@ -32,6 +33,22 @@ const DEFAULT_DATA: AppData = {
     { id: generateId(), age: 85, amount: -800, memo: '介護費用（2人分）' },
   ],
 };
+
+const DEFAULT_DATA_FREE: AppData = {
+  global: { initialPrincipal: 300, initialProfit: 0, endAge: 100 },
+  periods: [
+    { id: generateId(), startAge: 35, annualRate: 4, monthlyAmount: 5,   annualAmount: 0, memo: '夫婦2人でNISA月5万' },
+    { id: generateId(), startAge: 45, annualRate: 4, monthlyAmount: 3,   annualAmount: 0, memo: '教育費ピークで積立抑制' },
+    { id: generateId(), startAge: 65, annualRate: 3, monthlyAmount: -13, annualAmount: 0, memo: 'ゆとりある生活費35万−年金(2人分)22万＝取崩13万' },
+  ],
+  lifeEvents: [
+    { id: generateId(), age: 45, amount: -700,  memo: '住宅購入頭金・教育費' },
+    { id: generateId(), age: 60, amount: 1500,  memo: '退職金（2人分）' },
+    { id: generateId(), age: 85, amount: -1100, memo: '住宅リフォーム・介護費用（2人分）' },
+  ],
+};
+
+const DEFAULT_DATA: AppData = IS_FULL ? DEFAULT_DATA_FULL : DEFAULT_DATA_FREE;
 
 function sortByAge(periods: Period[]): Period[] {
   return [...periods].sort((a, b) => a.startAge - b.startAge);
@@ -63,7 +80,7 @@ export default function App() {
   const [selectedPreset, setSelectedPreset] = useState('');
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}presets.json`)
+    fetch(`${import.meta.env.BASE_URL}${PRESETS_FILE}`)
       .then(r => r.json())
       .then((loaded: Preset[]) => {
         setPresets(loaded);
@@ -144,7 +161,7 @@ export default function App() {
               <CardTitle>投資資産推移グラフ</CardTitle>
             </CardHeader>
             <CardContent className="p-2">
-              <SimulationChart rows={rows} />
+              <SimulationChart rows={rows} periods={data.periods} lifeEvents={data.lifeEvents} />
               <p className="text-xs text-gray-400 px-2 pt-1">
                 ※ 設定した利回りが毎年一定で続く前提の月次複利計算です。税金・手数料・物価上昇（インフレ）は考慮していません。
               </p>
